@@ -1,4 +1,5 @@
 import { CaretLeft, CaretRight, DownloadSimple, User } from "./icons";
+import LoginButton from "./login-button";
 
 export default function Header() {
   return (
@@ -12,6 +13,7 @@ export default function Header() {
         </button>
       </div>
       <div className="flex gap-2">
+        <LoginButton></LoginButton>
         <button className="bg-white rounded-full h-8 text-black font-bold text-center text-sm px-4 py-1 hover:scale-105 transition ease-in-out">
           Explore Premium
         </button>
