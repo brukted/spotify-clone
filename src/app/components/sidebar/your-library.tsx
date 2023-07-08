@@ -1,10 +1,42 @@
 import Chip from "../common/chip";
 import { ListDashes, MagnifyingGlass, Plus } from "../icons";
 import Tile from "./tile";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
-export default function YourLibrary() {
+async function getPlaylists() {
+  const session = await getServerSession(authOptions);
   return (
-    <div className="bg-[#121212] grid grid-cols-1 grid-flow-row rounded-lg overflow-hidden">
+    await (
+      await fetch("https://api.spotify.com/v1/me/playlists", {
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+      })
+    ).json()
+  ).items;
+}
+
+async function getArtists() {
+  const session = await getServerSession(authOptions);
+  return (
+    await (
+      await fetch("https://api.spotify.com/v1/me/following?type=artist", {
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+      })
+    ).json()
+  ).artists.items;
+}
+
+export default async function YourLibrary() {
+  const playlists = await getPlaylists();
+  const artists = await getArtists();
+  const items = [...playlists, ...artists];
+  items.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+  return (
+    <div className="bg-[#121212] grid grid-cols-1 grid-rows-[auto_1fr] rounded-lg overflow-hidden">
       {/*Header Section*/}
       <div className="flex flex-col shadow-lg">
         <header className="flex w-full justify-between items-center text-neutral-400 px-4 py-2">
@@ -36,20 +68,9 @@ export default function YourLibrary() {
           </button>
         </div>
         <div className="flex flex-col flex-grow mb-2">
-          <Tile text="Lorem" icon="hello" isActive={true}></Tile>
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
-
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
-          <Tile text="Lorem" icon="hello" isActive={false}></Tile>
+          {items.map((item) => (
+            <Tile key={item.id} item={item} isActive={false}></Tile>
+          ))}
         </div>
       </div>
     </div>

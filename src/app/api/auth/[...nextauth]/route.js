@@ -4,6 +4,7 @@ import fetch from "node-fetch";
 
 const scopes = [
   "user-read-email",
+  "user-follow-read",
   "playlist-read-private",
   "playlist-read-collaborative",
   "user-read-currently-playing",
@@ -28,9 +29,9 @@ async function refreshAccessToken(token) {
       Authorization:
         "Basic " +
         new Buffer.from(
-          "9173238eec6a4a5cafd97bee89d4b43f" +
+          process.env.SPOTIFY_CLIENT_ID +
           ":" +
-          "e03002686b8e46f0827b7e8d53a83635"
+          process.env.SPOTIFY_CLIENT_SECRET
         ).toString("base64"),
     },
     body: params,
@@ -48,12 +49,12 @@ export const authOptions = {
   // Configure one or more authentication providers
   providers: [
     SpotifyProvider({
-      clientId: "9173238eec6a4a5cafd97bee89d4b43f",
-      clientSecret: "e03002686b8e46f0827b7e8d53a83635",
+      clientId: process.env.SPOTIFY_CLIENT_ID,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
       authorization: LOGIN_URL,
     }),
   ],
-  secret: "loremipsumdolorsitametconsecteturadipiscingelit",
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/login",
   },
@@ -69,7 +70,7 @@ export const authOptions = {
       // access token has not expired
       if (
         token.accessTokenExpires &&
-        Date.now() < token.accessTokenExpires * 1000
+        Date.now() < token.accessTokenExpires
       ) {
         return token;
       }
