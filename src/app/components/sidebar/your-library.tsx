@@ -25,12 +25,36 @@ async function getArtists() {
     .then((res) => res.json())
     .then((res) => res.artists.items);
 }
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
 
 export default async function YourLibrary() {
-  const playlists = await getPlaylists();
-  const artists = await getArtists();
-  const items = [...playlists, ...artists];
-  items.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+  // const playlists = await getPlaylists();
+  // const artists = await getArtists();
+  // const items = [...playlists, ...artists];
+  const items = [];
+  for (let i = 0; i < 10; i++) {
+    const type = Math.random() > 0.5 ? "playlist" : "artist";
+    items.push({
+      id: i,
+      name: toTitleCase(type + " " + i),
+      images: [{ url: "https://picsum.photos/200/200?random=" + i }],
+      owner: type == "playlist" ? { display_name: "Spotify" } : null,
+      type: type,
+    });
+  }
+
+  // Shuffle items
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * i);
+    const temp = items[i];
+    items[i] = items[j];
+    items[j] = temp;
+  }
+
   return (
     <div className="bg-[#121212] grid grid-cols-1 grid-rows-[auto_1fr] rounded-lg overflow-hidden">
       {/*Header Section*/}
