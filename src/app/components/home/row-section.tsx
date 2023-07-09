@@ -15,7 +15,7 @@ export default function RowSection() {
           Show All
         </Link>
       </div>
-      <div className="grid grid-rows-1 grid-cols-5 gap-5 overflow-scroll">
+      <div className="grid grid-rows-1 grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] gap-5 overflow-scroll">
         <Card></Card>
         <Card></Card>
         <Card></Card>
