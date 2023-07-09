@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Pause } from "../icons";
+import { Pause, Play } from "../icons";
 
 export default function HorizontalTile() {
   return (
@@ -7,14 +7,17 @@ export default function HorizontalTile() {
       <Image
         height={100}
         width={100}
-        src="https://picsum.photos/200/200"
-        className="w-20 h-20 object-contain rounded-md shadow-lg"
+        src={
+          "https://picsum.photos/200/300?random=" +
+          (Math.floor(Math.random() * 100) + 1)
+        }
+        className="w-20 h-20 object-cover rounded-md shadow-lg"
         alt="album art"
       ></Image>
-      <span className="font-bold">Taylor Swift</span>
+      <span className="font-bold">This is Johnny Cash</span>
       <div className="flex-grow justify-end pr-4 flex">
         <button className="h-12 aspect-square rounded-full bg-[#1CDF63] hidden opacity-0 group-hover:flex group-hover:opacity-100 transition items-center justify-center text-black shadow-xl hover:scale-105">
-          <Pause size={24} weight="fill" />
+          <Play size={24} weight="fill" />
         </button>
       </div>
     </div>

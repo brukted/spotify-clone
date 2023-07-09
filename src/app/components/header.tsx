@@ -3,7 +3,7 @@ import LoginButton from "./login-button";
 
 export default function Header() {
   return (
-    <header className="bg-opacity-0 w-full h-16 absolute top-0 z-20 px-5 py-4 flex justify-between items-center">
+    <header className="bg-opacity-0 w-full h-16 absolute top-0 z-20 px-5 py-4 flex justify-between items-center backdrop-blur-sm">
       <div className="flex gap-2 text-white">
         <button className="w-8 h-8 bg-black bg-opacity-70 flex items-center justify-center rounded-full">
           <CaretLeft weight="bold" size={18} />

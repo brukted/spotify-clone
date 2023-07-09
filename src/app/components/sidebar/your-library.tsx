@@ -6,28 +6,24 @@ import { getServerSession } from "next-auth";
 
 async function getPlaylists() {
   const session = await getServerSession(authOptions);
-  return (
-    await (
-      await fetch("https://api.spotify.com/v1/me/playlists", {
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
-        },
-      })
-    ).json()
-  ).items;
+  return await fetch("https://api.spotify.com/v1/me/playlists", {
+    headers: {
+      Authorization: `Bearer ${session.accessToken}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => res.items);
 }
 
 async function getArtists() {
   const session = await getServerSession(authOptions);
-  return (
-    await (
-      await fetch("https://api.spotify.com/v1/me/following?type=artist", {
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
-        },
-      })
-    ).json()
-  ).artists.items;
+  return await fetch("https://api.spotify.com/v1/me/following?type=artist", {
+    headers: {
+      Authorization: `Bearer ${session.accessToken}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => res.artists.items);
 }
 
 export default async function YourLibrary() {
@@ -52,10 +48,6 @@ export default async function YourLibrary() {
           <Chip text="Playlists"></Chip>
           <Chip text="Artists"></Chip>
           <Chip text="Albums"></Chip>
-          <Chip text="Podcasts"></Chip>
-          <Chip text="Podcasts"></Chip>
-          <Chip text="Podcasts"></Chip>
-          <Chip text="Podcasts"></Chip>
           <Chip text="Podcasts"></Chip>
         </div>
       </div>

@@ -1,9 +1,9 @@
 import { Urbanist } from "next/font/google";
 import Header from "./components/header";
 import SideBar from "./components/sidebar/side-bar";
-import { SessionProvider } from "next-auth/react";
 import "./globals.css";
 import AuthContext from "./components/auth-context";
+import PlayerBar from "./components/player-bar";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -21,12 +21,13 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={urbanist.className}>
         <AuthContext>
-          <main className="grid grid-flow-col grid-rows-1 h-screen items-stretch justify-between p-2 gap-2">
+          <main className="grid grid-cols-[auto_1fr] grid-rows-1 h-screen items-stretch justify-between p-2 gap-2">
             <SideBar></SideBar>
-            <section className="bg-[#121212] flex-grow rounded-lg grid grid-cols-1 grid-flow-row relative overflow-clip">
+            <section className="bg-[#121212] flex-grow rounded-lg grid grid-cols-1 grid-flow-row relative overflow-clip w-full h-full">
               <Header></Header>
               <div className="overflow-scroll">{children}</div>
             </section>
+            <PlayerBar></PlayerBar>
           </main>
         </AuthContext>
       </body>
