@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { MusicNotesSimple } from "../icons";
 import Link from "next/link";
+import LibraryItem from "@/app/types/library-item";
 
 export default function Tile({
   item,
   isActive,
 }: {
-  item: any;
+  item: LibraryItem;
   isActive: boolean;
 }) {
   return (

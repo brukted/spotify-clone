@@ -1,7 +1,8 @@
 import Card from "../components/search/card";
+import Category from "../types/category";
 
 export default async function Search() {
-  const items = [
+  const categories: Category[] = [
     {
       id: 0,
       name: "Afro",
@@ -303,8 +304,8 @@ export default async function Search() {
     <div className="flex flex-col pt-24 px-5">
       <h1 className="text-2xl font-bold">Browse All</h1>
       <div className="grid my-4 gap-4 w-full grid-cols-[repeat(auto-fit,minmax(12rem,1fr))]">
-        {items.map((item) => (
-          <Card key={item.id} item={item}></Card>
+        {categories.map((category) => (
+          <Card key={category.id} category={category}></Card>
         ))}
       </div>
     </div>

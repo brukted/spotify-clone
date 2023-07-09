@@ -3,6 +3,7 @@ import { ListDashes, MagnifyingGlass, Plus } from "../icons";
 import Tile from "./tile";
 import { authOptions } from "../../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
+import LibraryItem from "@/app/types/library-item";
 
 async function getPlaylists() {
   const session = await getServerSession(authOptions);
@@ -35,7 +36,7 @@ export default async function YourLibrary() {
   // const playlists = await getPlaylists();
   // const artists = await getArtists();
   // const items = [...playlists, ...artists];
-  const items = [];
+  const items: LibraryItem[] = [];
   for (let i = 0; i < 10; i++) {
     const type = Math.random() > 0.5 ? "playlist" : "artist";
     items.push({
