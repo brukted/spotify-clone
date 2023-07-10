@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark bg-black text-white">
       <body className={urbanist.className}>
         <AuthContext>
           <main className="grid grid-cols-[auto_1fr] grid-rows-1 h-screen items-stretch justify-between p-2 gap-2">
