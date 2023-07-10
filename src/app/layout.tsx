@@ -4,7 +4,7 @@ import SideBar from "./components/sidebar/side-bar";
 import "./globals.css";
 import AuthContext from "./components/auth-context";
 import PlayerBar from "./components/player-bar";
-import { ThemeProvider } from "next-themes";
+import { Providers } from "./providers";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -19,11 +19,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <ThemeProvider attribute="class">
-        <body className={urbanist.className}>
+    <html lang="en">
+      <body>
+        <Providers>
           <AuthContext>
-            <main className="grid grid-cols-[auto_1fr] grid-rows-1 h-screen items-stretch justify-between p-2 gap-2">
+            <main className="grid grid-cols-[auto_1fr] grid-rows-1 h-screen items-stretch justify-between p-2 pb-0 gap-2">
               <SideBar></SideBar>
               <section className="bg-[#121212] flex-grow rounded-lg grid grid-cols-1 grid-flow-row relative overflow-clip w-full h-full">
                 <Header></Header>
@@ -32,8 +32,8 @@ export default function RootLayout({
               <PlayerBar></PlayerBar>
             </main>
           </AuthContext>
-        </body>
-      </ThemeProvider>
+        </Providers>
+      </body>
     </html>
   );
 }
